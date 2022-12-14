@@ -14,6 +14,6 @@ jobs:
     - name: 'Lint Code Base'
       uses: github/super-linter/slim@4
       env:
-        VALIDATE_ALL_CODE: true
+        VALIDATE_ALL_CODEBASE: true
         GITHUB_TOKEN: ${{ secret.GITHUB_TOKEN }}
       
