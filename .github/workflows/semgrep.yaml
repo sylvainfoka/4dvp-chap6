@@ -1,14 +1,10 @@
-on:
-  push:
-  
-jobs:
-  semgrep:
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    container:
-      image: returntocorp/semgrep:1.1.0
-    steps:
+semgrep:
+  runs-on: ubuntu-latest
+  permissions:
+    security-events: write
+  container:
+    image: returntocorp/semgrep:1.1.0
+  steps:
     - name: "Checkout source"
       uses: actions/checkout@v3
 
