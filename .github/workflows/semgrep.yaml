@@ -1,20 +1,24 @@
-semgrep:
-  runs-on: ubuntu-latest
-  permissions:
-    security-events: write
-  container:
-    image: returntocorp/semgrep:1.1.0
-  steps:
-    - name: "Checkout source"
-      uses: actions/checkout@v3
+on:
+  workflow_dispatch:
 
-    - name: "Execute semgrep"
-      run: semgrep ci --sarif --output=semgrep.sarif
-      env:
-        SEMGREP_RULES: p/defaults
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    container:
+      image: returntocorp/semgrep:1.1.0
+    steps:
+      - name: "Checkout source"
+        uses: actions/checkout@v3
 
-    - name: "Upload SARIF file for GitHub CodeQl"
-      uses: github/code-ql-action/upload-sarif@v2
-      if: always()
-      with:
-        sarif_file: semgrep.sarif
+      - name: "Execute semgrep"
+        run: semgrep ci --sarif --output=semgrep.sarif
+        env:
+          SEMGREP_RULES: p/defaults
+
+      - name: "Upload SARIF file for GitHub CodeQl"
+        uses: github/code-ql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
